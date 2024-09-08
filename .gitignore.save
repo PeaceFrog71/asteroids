@@ -1,0 +1,6 @@
+env/
+<<<<<<< HEAD
+
+venv/
+=======
+>>>>>>> f1a38a0 (added .gitignore file)
