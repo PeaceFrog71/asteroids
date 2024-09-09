@@ -10,6 +10,7 @@ def main():
 	pygame.init()
 	game_clock = pygame.time.Clock()
 	dt = 0
+	print(f"We just set dt to 10. but it is actually = {dt}")
 	
 	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	running = True
@@ -20,8 +21,11 @@ def main():
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
+		player.update(dt)
 		screen.fill(BLACK)
+
 		player.draw(screen)
+		
 		pygame.display.flip()
 		dt = game_clock.tick(60)/1000
 
