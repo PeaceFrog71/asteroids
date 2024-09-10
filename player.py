@@ -15,10 +15,11 @@ class Player(CircleShape):
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
         a = self.position - forward * self.radius
         b = self.position + forward * self.radius - right
-        c = self.position + forward * self.radius + right
-        d = self.position + forward/2 * self.radius
+        c = self.position + forward/2 * self.radius
+        d = self.position + forward * self.radius + right
+        
         print(f"a={a}\nb={b}\nc={c}\nd={d}\n")
-        return [a, b, d, c]
+        return [a, b, c, d]
     
     def draw(self, screen):
         pygame.draw.polygon(screen, GREEN, points=self.ship(), width=2)
