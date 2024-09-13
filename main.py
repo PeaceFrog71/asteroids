@@ -21,8 +21,6 @@ def main():
 	Asteroid.containers = updatable, drawable, asteroids
 
 	player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
-	updatable.add(player)
-	drawable.add(player) 
 
 	while running:
 		for event in pygame.event.get():
