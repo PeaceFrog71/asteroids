@@ -18,7 +18,7 @@ class Player(CircleShape):
         c = self.position + forward/2 * self.radius
         d = self.position + forward * self.radius + right
         
-        print(f"a={a}\nb={b}\nc={c}\nd={d}\n")
+        #print(f"a={a}\nb={b}\nc={c}\nd={d}\n")
         return [a, b, c, d]
     
     def draw(self, screen):
@@ -44,3 +44,4 @@ class Player(CircleShape):
     def move(self, dt):
         forward = pygame.Vector2(0,1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
+        # print(f"Forward is: {forward}")
