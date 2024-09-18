@@ -17,10 +17,12 @@ def main():
 	updatable = pygame.sprite.Group()
 	drawable = pygame.sprite.Group()
 	asteroids = pygame.sprite.Group()
+	shots = pygame.sprite.Group()
 	
 	Player.containers = (updatable, drawable)
 	Asteroid.containers = (asteroids, updatable, drawable, )
 	AsteroidField.containers = (updatable)
+	Shot.containers = (shots, updatable, drawable)
 
 	player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
 	gamefield = AsteroidField()
@@ -47,7 +49,5 @@ def main():
 		# print(f"FPS = {game_clock.get_fps()}")
 	pygame.quit()
 	 
-
-
 if __name__ == "__main__":
 	main()
