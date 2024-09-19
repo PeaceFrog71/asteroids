@@ -1,17 +1,17 @@
+import sys
 import pygame
 from constants import *
-from player import *
-from asteroid import *
+from player import Player
+from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from shot import Shot
 
 
 def main():
-	print("Starting asteroids!")
 	pygame.init()
+	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	game_clock = pygame.time.Clock()
 	dt = 0
-	
-	screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 	running = True
 
 	updatable = pygame.sprite.Group()
@@ -20,34 +20,36 @@ def main():
 	shots = pygame.sprite.Group()
 	
 	Player.containers = (updatable, drawable)
-	Asteroid.containers = (asteroids, updatable, drawable, )
+	Asteroid.containers = (asteroids, updatable, drawable)
 	AsteroidField.containers = (updatable)
 	Shot.containers = (shots, updatable, drawable)
 
-	player = Player(x=SCREEN_WIDTH/2, y=SCREEN_HEIGHT/2)
-	gamefield = AsteroidField()
+	player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+	asteroid_field = AsteroidField()
 
 	while running:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
-		screen.fill(BLACK)
-		for item in updatable:
-			item.update(dt)
+
+		for obj in updatable:
+			obj.update(dt)
 		for asteroid in asteroids:
-			if player.collision_check(asteroid):
+			if asteroid.collision_check(player):
 				print("Game Over!")
-				return
-		for item in drawable:
-			item.draw(screen)
+				sys.exit()
+
+		screen.fill(BLACK)
+
+		for obj in drawable:
+			obj.draw(screen)
 
 
 		pygame.display.flip()
 
-		dt = game_clock.tick(80)/1000
+		dt = game_clock.tick(60) / 1000
 		# print(f"dt = {dt}").
 		# print(f"FPS = {game_clock.get_fps()}")
-	pygame.quit()
 	 
 if __name__ == "__main__":
 	main()

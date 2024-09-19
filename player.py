@@ -24,12 +24,12 @@ class Player(CircleShape):
         return [a, b, c, d]
     
     def draw(self, screen):
-        pygame.draw.polygon(screen, GREEN, points=self.ship(), width=2)
+        pygame.draw.polygon(screen, GREEN, points=self.ship(), width=1)
 
     def rotate(self, dt):
-        speed_corrected = PLAYER_TURN_SPEED * dt
+        rotational_speed = PLAYER_TURN_SPEED * dt
         #print(f"PRS = {speed_corrected}")
-        self.rotation += speed_corrected
+        self.rotation += rotational_speed
 
     def update(self, dt):
         self.fire_timer -= dt
@@ -56,6 +56,6 @@ class Player(CircleShape):
             return
 
         self.fire_timer = SHOT_COOLDOWN
-        shot = Shot(self.position.x, self.position.y, radius= SHOT_RADIUS)
+        shot = Shot(self.position.x, self.position.y, rotation=self.rotation)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * SHOT_SPEED
         #print(f"Shot velocity is: {velocity}")
