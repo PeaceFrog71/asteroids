@@ -5,7 +5,7 @@ import pygame
 class Shot(CircleShape):
     def __init__(self, x, y, radius= SHOT_RADIUS, rotation=0):
         super().__init__(x, y, radius)
-        self.color = GREEN
+        self.color = WHITE
         self.velocity = pygame.Vector2(0,1) * SHOT_SPEED
         self.velocity = self.velocity.rotate(rotation)
         self.radius = radius

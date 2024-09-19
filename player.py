@@ -1,15 +1,13 @@
-from constants import *
-from circleshape import *
-from shot import *
 import pygame
+from constants import *
+from circleshape import CircleShape
+from shot import Shot
 
-
-# Base class for game objects
 class Player(CircleShape):
     def __init__(self, x, y):
-        super().__init__(x, y, radius=PLAYER_RADIUS)
+        super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
-        self.fire_timer = 0
+        self.shot_timer = 0
 
     # in the player class
     def ship(self):
@@ -17,14 +15,15 @@ class Player(CircleShape):
         right = pygame.Vector2(0, 1).rotate(self.rotation + 90) * self.radius / 1.5
         a = self.position - forward * self.radius
         b = self.position + forward * self.radius - right
-        c = self.position + forward/2 * self.radius
-        d = self.position + forward * self.radius + right
+        c = self.position + forward/2 * self.radius - right/2
+        d = self.position + forward/2 * self.radius + right/2
+        e = self.position + forward * self.radius + right
         
         #print(f"a={a}\nb={b}\nc={c}\nd={d}\n")
-        return [a, b, c, d]
+        return [a, b, c, d, e]
     
     def draw(self, screen):
-        pygame.draw.polygon(screen, GREEN, points=self.ship(), width=1)
+        pygame.draw.polygon(screen, WHITE, self.ship(), width=1)
 
     def rotate(self, dt):
         rotational_speed = PLAYER_TURN_SPEED * dt
@@ -32,7 +31,7 @@ class Player(CircleShape):
         self.rotation += rotational_speed
 
     def update(self, dt):
-        self.fire_timer -= dt
+        self.shot_timer -= dt
         keys = pygame.key.get_pressed()
         #print(f"dt = {dt}")
         if keys[pygame.K_a]:
@@ -52,10 +51,10 @@ class Player(CircleShape):
         # print(f"Forward is: {forward}")
 
     def shoot(self, dt):
-        if self.fire_timer > 0:
+        if self.shot_timer > 0:
             return
 
-        self.fire_timer = SHOT_COOLDOWN
+        self.shot_timer = SHOT_COOLDOWN
         shot = Shot(self.position.x, self.position.y, rotation=self.rotation)
         shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * SHOT_SPEED
         #print(f"Shot velocity is: {velocity}")
