@@ -23,3 +23,7 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 CYAN = (0,255,255)
 GREEN = (0,255,0)
+
+#FONT
+FONT_PATH = "VectorBattle-e9XO.ttf"
+FONT_SIZE = 30
