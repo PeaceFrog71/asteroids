@@ -30,7 +30,9 @@ def main():
 	asteroid_field = AsteroidField()
 	scoreboard = Scoreboard(FONT_PATH, FONT_SIZE, screen)
 
+
 	while running:
+		refresh_list = False
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
@@ -38,14 +40,19 @@ def main():
 		for obj in updatable:
 			obj.update(dt)
 		for asteroid in asteroids:
+			if refresh_list:
+				refresh_list = False
+				break
 			if asteroid.collision_check(player):
 				print("Game Over!")
 				sys.exit()
 			for shot in shots:
 				if asteroid.collision_check(shot):
-					scoreboard.update_score(10 * asteroid.radius)
-					asteroid.split()
 					shot.kill()
+					scoreboard.update_score(1 * asteroid.radius)
+					asteroid.split()
+					
+					refresh_list = True
 					break
 
 		screen.fill(BLACK)
@@ -56,7 +63,7 @@ def main():
 
 		pygame.display.flip()
 
-		dt = game_clock.tick(80) / 1000
+		dt = game_clock.tick(200) / 1000
 	 
 if __name__ == "__main__":
 	main()

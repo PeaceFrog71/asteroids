@@ -26,10 +26,8 @@ class Asteroid(CircleShape):
             self.spawn_children()
 
     def spawn_children(self):
-        self.kill()
         split_angle = random.randint(20, 50)
-        for i in range(2):
-            child1 = Asteroid(self.position.x, self.position.y, self.radius - ASTEROID_MIN_RADIUS)
-            child1.velocity = pygame.Vector2(self.velocity).rotate(split_angle) * 2
-            child2 = Asteroid(self.position.x, self.position.y, self.radius - ASTEROID_MIN_RADIUS)
-            child2.velocity = pygame.Vector2(self.velocity).rotate(-split_angle) * 2
+        child1 = Asteroid(self.position.x, self.position.y, self.radius - ASTEROID_MIN_RADIUS)
+        child1.velocity = pygame.Vector2(self.velocity).rotate(split_angle) * 1.5
+        child2 = Asteroid(self.position.x, self.position.y, self.radius - ASTEROID_MIN_RADIUS)
+        child2.velocity = pygame.Vector2(self.velocity).rotate(-split_angle) * 1.5
